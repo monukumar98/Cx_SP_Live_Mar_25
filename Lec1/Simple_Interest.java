@@ -1,4 +1,4 @@
-package Lce1;
+package Lec1;
 
 public class Simple_Interest {
 
