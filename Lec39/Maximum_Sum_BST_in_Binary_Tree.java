@@ -40,7 +40,8 @@ public class Maximum_Sum_BST_in_Binary_Tree {
 			sbp.sum = lbp.sum + rbp.sum + root.val;
 			sbp.isBST = lbp.isBST && rbp.isBST && lbp.max < root.val && rbp.min > root.val;
 			if (sbp.isBST) {
-				sbp.ans = Math.max(sbp.sum, rbp.ans);
+				sbp.ans = Math.max(sbp.sum, Math.max(lbp.ans, rbp.ans));
+
 			} else {
 				sbp.ans = Math.max(lbp.ans, rbp.ans);
 			}
