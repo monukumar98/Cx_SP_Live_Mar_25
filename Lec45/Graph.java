@@ -1,6 +1,10 @@
 package Lec45;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Graph {
 	private HashMap<Integer, HashMap<Integer, Integer>> map;
@@ -55,6 +59,161 @@ public class Graph {
 		for (int vtx : map.keySet()) {
 			System.out.println(vtx + " " + map.get(vtx));
 		}
+	}
+
+	public boolean haspath(int src, int des, HashSet<Integer> visited) {
+		if (src == des) {
+			return true;
+		}
+		visited.add(src);
+		for (int nbrs : map.get(src).keySet()) {
+			if (!visited.contains(nbrs)) {
+				boolean ans = haspath(nbrs, des, visited);
+				if (ans) {
+					return ans;
+				}
+			}
+		}
+		return false;
+
+	}
+
+	public void PrintAllPath(int src, int des, HashSet<Integer> visited, String ans) {
+		if (src == des) {
+			System.out.println(ans + des);
+			return;
+		}
+		visited.add(src);
+		for (int nbrs : map.get(src).keySet()) {
+			if (!visited.contains(nbrs)) {
+				PrintAllPath(nbrs, des, visited, ans + src);
+
+			}
+		}
+		visited.remove(src);
+
+	}
+
+	public boolean BFS(int src, int des) {
+		Queue<Integer> q = new LinkedList<>();
+		HashSet<Integer> visited = new HashSet<>();
+		q.add(src);
+		while (!q.isEmpty()) {
+			// 1. remove
+			int r = q.poll();
+			// 2. Ignore if Alredy visited
+			if (visited.contains(r)) {
+				continue;
+			}
+			// 3. marked visited
+			visited.add(r);
+			// 4. self Work
+			if (r == des) {
+				return true;
+			}
+			// 5. Add unvisited nbrs
+			for (int nbrs : map.get(r).keySet()) {
+				if (!visited.contains(nbrs)) {
+					q.add(nbrs);
+
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean DFS(int src, int des) {
+		Stack<Integer> st = new Stack<>();
+		HashSet<Integer> visited = new HashSet<>();
+		st.push(src);
+		while (!st.isEmpty()) {
+			// 1. remove
+			int r = st.pop();
+			// 2. Ignore if Alredy visited
+			if (visited.contains(r)) {
+				continue;
+			}
+			// 3. marked visited
+			visited.add(r);
+			// 4. self Work
+			if (r == des) {
+				return true;
+			}
+			// 5. Add unvisited nbrs
+			for (int nbrs : map.get(r).keySet()) {
+				if (!visited.contains(nbrs)) {
+					st.push(nbrs);
+
+				}
+			}
+		}
+		return false;
+	}
+
+	public void BFT() {
+		Queue<Integer> q = new LinkedList<>();
+		HashSet<Integer> visited = new HashSet<>();
+		for (int src : map.keySet()) {
+			if (visited.contains(src)) {
+				continue;
+			}
+			// c++;
+			q.add(src);
+			while (!q.isEmpty()) {
+				// 1. remove
+				int r = q.poll();
+				// 2. Ignore if Alredy visited
+				if (visited.contains(r)) {
+					continue;
+				}
+				// 3. marked visited
+				visited.add(r);
+				// 4. self Work
+				System.out.print(r + " ");
+				// 5. Add unvisited nbrs
+				for (int nbrs : map.get(r).keySet()) {
+					if (!visited.contains(nbrs)) {
+						q.add(nbrs);
+
+					}
+				}
+			}
+		}
+
+		System.out.println();
+	}
+
+	public void DFT() {
+		Stack<Integer> st = new Stack<>();
+		HashSet<Integer> visited = new HashSet<>();
+		for (int src : map.keySet()) {
+			if (visited.contains(src)) {
+				continue;
+			}
+			// c++
+			st.push(src);
+			while (!st.isEmpty()) {
+				// 1. remove
+				int r = st.pop();
+				// 2. Ignore if Alredy visited
+				if (visited.contains(r)) {
+					continue;
+				}
+				// 3. marked visited
+				visited.add(r);
+				// 4. self Work
+				System.out.print(r + " ");
+				// 5. Add unvisited nbrs
+				for (int nbrs : map.get(r).keySet()) {
+					if (!visited.contains(nbrs)) {
+						st.push(nbrs);
+
+					}
+				}
+			}
+		}
+		
+		System.out.println();
 	}
 
 }
