@@ -2,8 +2,6 @@ package Lec48;
 
 import java.util.HashMap;
 
-import Lec48.Trie.Node;
-
 public class Tries_Contacts {
 	class Node {
 		char ch;
